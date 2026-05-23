@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:vm="using:F2Share.Desktop.ViewModels"
+        x:Class="F2Share.Desktop.Views.MainWindow"
+  x:DataType="vm:MainViewModel"
+        Width="1180"
+        Height="760"
+        Title="F2Share P2P Sync">
+  <Grid RowDefinitions="Auto,*" Margin="16">
+    <Border Grid.Row="0" CornerRadius="12" Padding="14" Background="#1A2A5A44">
+      <Grid ColumnDefinitions="*,Auto,Auto" VerticalAlignment="Center">
+        <StackPanel>
+          <TextBlock Text="F2Share" FontSize="26" FontWeight="Bold" />
+          <TextBlock Text="Distributed P2P folder synchronization" Opacity="0.75" />
+        </StackPanel>
+        <Button Grid.Column="1" Content="Pause/Resume" Margin="8,0" Command="{Binding ToggleSyncCommand}" />
+        <ToggleSwitch Grid.Column="2" IsChecked="{Binding IsDarkMode}" OffContent="Light" OnContent="Dark" />
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" Margin="0,16,0,0" ColumnDefinitions="2*,2*,2*" RowDefinitions="2*,2*">
+      <Border Grid.Column="0" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Shared Folders" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding SharedFolders}" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="1" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Peers" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding Peers}" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="2" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Transfers" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding ActiveTransfers}" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Diagnostics" FontWeight="SemiBold" FontSize="18" />
+          <TextBlock Text="{Binding DiagnosticsSummary}" TextWrapping="Wrap" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="2" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Conflicts" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding Conflicts}" />
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

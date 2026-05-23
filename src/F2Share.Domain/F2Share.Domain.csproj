@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>F2Share.Domain</AssemblyName>
+    <RootNamespace>F2Share.Domain</RootNamespace>
+  </PropertyGroup>
+</Project>

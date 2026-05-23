@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.Domain", "src\F2Share.Domain\F2Share.Domain.csproj", "{C3107E06-6A06-4A9D-8D6F-93205D6F598A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.Application", "src\F2Share.Application\F2Share.Application.csproj", "{19473EBA-03F6-4E5F-B7A5-2369F71E8E3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.Infrastructure", "src\F2Share.Infrastructure\F2Share.Infrastructure.csproj", "{D3624349-4F56-4E0D-9E84-F2E8A754BE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.Transport", "src\F2Share.Transport\F2Share.Transport.csproj", "{84F94616-9A1B-4857-8C7F-B2D7B36D6F0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.Desktop", "src\F2Share.Desktop\F2Share.Desktop.csproj", "{706A6CD5-9E83-43BA-9F97-BCC60D66AF87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.UnitTests", "tests\F2Share.UnitTests\F2Share.UnitTests.csproj", "{2A7FBF66-65A0-4694-B460-16F6A143E42D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Share.IntegrationTests", "tests\F2Share.IntegrationTests\F2Share.IntegrationTests.csproj", "{84C97389-5617-4DE1-B914-70E7DC37A2D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3107E06-6A06-4A9D-8D6F-93205D6F598A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3107E06-6A06-4A9D-8D6F-93205D6F598A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3107E06-6A06-4A9D-8D6F-93205D6F598A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3107E06-6A06-4A9D-8D6F-93205D6F598A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19473EBA-03F6-4E5F-B7A5-2369F71E8E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19473EBA-03F6-4E5F-B7A5-2369F71E8E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19473EBA-03F6-4E5F-B7A5-2369F71E8E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19473EBA-03F6-4E5F-B7A5-2369F71E8E3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3624349-4F56-4E0D-9E84-F2E8A754BE6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3624349-4F56-4E0D-9E84-F2E8A754BE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3624349-4F56-4E0D-9E84-F2E8A754BE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3624349-4F56-4E0D-9E84-F2E8A754BE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F94616-9A1B-4857-8C7F-B2D7B36D6F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F94616-9A1B-4857-8C7F-B2D7B36D6F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F94616-9A1B-4857-8C7F-B2D7B36D6F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F94616-9A1B-4857-8C7F-B2D7B36D6F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{706A6CD5-9E83-43BA-9F97-BCC60D66AF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{706A6CD5-9E83-43BA-9F97-BCC60D66AF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{706A6CD5-9E83-43BA-9F97-BCC60D66AF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{706A6CD5-9E83-43BA-9F97-BCC60D66AF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A7FBF66-65A0-4694-B460-16F6A143E42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A7FBF66-65A0-4694-B460-16F6A143E42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A7FBF66-65A0-4694-B460-16F6A143E42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A7FBF66-65A0-4694-B460-16F6A143E42D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C97389-5617-4DE1-B914-70E7DC37A2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C97389-5617-4DE1-B914-70E7DC37A2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C97389-5617-4DE1-B914-70E7DC37A2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C97389-5617-4DE1-B914-70E7DC37A2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

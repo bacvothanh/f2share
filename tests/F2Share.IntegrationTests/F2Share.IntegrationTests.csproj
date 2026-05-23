@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <AssemblyName>F2Share.IntegrationTests</AssemblyName>
+    <RootNamespace>F2Share.IntegrationTests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\F2Share.Application\F2Share.Application.csproj" />
+    <ProjectReference Include="..\..\src\F2Share.Infrastructure\F2Share.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\F2Share.Domain\F2Share.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+</Project>
