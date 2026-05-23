@@ -14,6 +14,8 @@ namespace F2Share.Desktop;
 public partial class App : global::Avalonia.Application
 {
     private IHost? _host;
+    private string _shareRootPath = string.Empty;
+    private string _shareId = "default-share";
 
     public override void Initialize()
     {
@@ -22,18 +24,17 @@ public partial class App : global::Avalonia.Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "F2Share");
-        Directory.CreateDirectory(rootPath);
+        _shareRootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "F2Share");
+        Directory.CreateDirectory(_shareRootPath);
 
         var deviceId = Environment.MachineName + "-" + Guid.NewGuid().ToString("N")[..6];
-        var shareId = "default-share";
-        var dbPath = Path.Combine(rootPath, ".f2share", "metadata.db");
+        var dbPath = Path.Combine(_shareRootPath, ".f2share", "metadata.db");
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
                 services.AddF2ShareApplication();
-                services.AddF2ShareInfrastructure(shareId, rootPath, dbPath, deviceId, Environment.MachineName, 40177);
+                services.AddF2ShareInfrastructure(_shareId, _shareRootPath, dbPath, deviceId, Environment.MachineName, 40177);
                 services.AddF2ShareTransport(deviceId);
                 services.AddSingleton<MainViewModel>();
             })
@@ -41,6 +42,7 @@ public partial class App : global::Avalonia.Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            desktop.Exit += OnDesktopExit;
             desktop.MainWindow = new MainWindow
             {
                 DataContext = _host.Services.GetRequiredService<MainViewModel>()
@@ -49,5 +51,16 @@ public partial class App : global::Avalonia.Application
 
         _host.Start();
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private async void OnDesktopExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+    {
+        if (_host is null)
+        {
+            return;
+        }
+
+        await _host.StopAsync(TimeSpan.FromSeconds(5));
+        _host.Dispose();
     }
 }

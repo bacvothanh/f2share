@@ -1,8 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:vm="using:F2Share.Desktop.ViewModels"
+    xmlns:vm="using:F2Share.Desktop.ViewModels"
         x:Class="F2Share.Desktop.Views.MainWindow"
-  x:DataType="vm:MainViewModel"
+    x:DataType="vm:MainViewModel"
         Width="1180"
         Height="760"
         Title="F2Share P2P Sync">
@@ -13,44 +13,116 @@
           <TextBlock Text="F2Share" FontSize="26" FontWeight="Bold" />
           <TextBlock Text="Distributed P2P folder synchronization" Opacity="0.75" />
         </StackPanel>
-        <Button Grid.Column="1" Content="Pause/Resume" Margin="8,0" Command="{Binding ToggleSyncCommand}" />
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" Margin="8,0">
+          <Button Content="Pause/Resume" Command="{Binding ToggleSyncCommand}" />
+          <Button Content="Refresh" Command="{Binding RefreshNowCommand}" />
+          <Button Content="Clear Logs" Command="{Binding ClearLogsCommand}" />
+        </StackPanel>
         <ToggleSwitch Grid.Column="2" IsChecked="{Binding IsDarkMode}" OffContent="Light" OnContent="Dark" />
       </Grid>
     </Border>
 
-    <Grid Grid.Row="1" Margin="0,16,0,0" ColumnDefinitions="2*,2*,2*" RowDefinitions="2*,2*">
-      <Border Grid.Column="0" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
-        <StackPanel>
-          <TextBlock Text="Shared Folders" FontWeight="SemiBold" FontSize="18" />
-          <ItemsControl ItemsSource="{Binding SharedFolders}" />
-        </StackPanel>
+    <Grid Grid.Row="1" Margin="0,16,0,0" ColumnDefinitions="2*,2*,2*" RowDefinitions="Auto,2*,2*">
+      <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Padding="10" CornerRadius="10" Background="#0F000000" Margin="0,0,0,10">
+        <Grid ColumnDefinitions="2*,Auto,Auto,Auto">
+          <TextBlock Text="{Binding DiagnosticsSummary}" VerticalAlignment="Center" TextWrapping="Wrap" />
+          <TextBlock Grid.Column="1" Margin="16,0,0,0" Text="{Binding SyncState}" FontWeight="Bold" />
+          <TextBlock Grid.Column="2" Margin="16,0,0,0" Text="{Binding IndexedFileCount, StringFormat='Files: {0}'}" />
+          <TextBlock Grid.Column="3" Margin="16,0,0,0" Text="{Binding IndexedBytesLabel, StringFormat='Size: {0}'}" />
+        </Grid>
       </Border>
 
-      <Border Grid.Column="1" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
+      <Border Grid.Column="1" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
         <StackPanel>
           <TextBlock Text="Peers" FontWeight="SemiBold" FontSize="18" />
-          <ItemsControl ItemsSource="{Binding Peers}" />
-        </StackPanel>
-      </Border>
-
-      <Border Grid.Column="2" Grid.Row="0" Padding="12" CornerRadius="10" Background="#11000000">
-        <StackPanel>
-          <TextBlock Text="Transfers" FontWeight="SemiBold" FontSize="18" />
-          <ItemsControl ItemsSource="{Binding ActiveTransfers}" />
-        </StackPanel>
-      </Border>
-
-      <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
-        <StackPanel>
-          <TextBlock Text="Diagnostics" FontWeight="SemiBold" FontSize="18" />
-          <TextBlock Text="{Binding DiagnosticsSummary}" TextWrapping="Wrap" />
+          <ItemsControl ItemsSource="{Binding Peers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:PeerViewModel">
+                <Border CornerRadius="6" Padding="8" Margin="0,4,0,0" Background="#13000000">
+                  <StackPanel>
+                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Endpoint}" Opacity="0.8" />
+                    <TextBlock Text="{Binding Status}" FontSize="11" Opacity="0.75" />
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
         </StackPanel>
       </Border>
 
       <Border Grid.Column="2" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
         <StackPanel>
+          <TextBlock Text="Transfers" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding ActiveTransfers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:TransferItemViewModel">
+                <Border CornerRadius="6" Padding="8" Margin="0,4,0,0" Background="#13000000">
+                  <StackPanel>
+                    <TextBlock Text="{Binding RelativePath}" FontWeight="SemiBold" />
+                    <ProgressBar Minimum="0" Maximum="1" Value="{Binding Progress}" Height="6" />
+                    <TextBlock Text="{Binding State}" FontSize="11" Opacity="0.75" />
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="0" Grid.Row="1" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Indexed Files" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding IndexedFiles}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:FileSyncEntryViewModel">
+                <Grid ColumnDefinitions="3*,Auto,Auto" Margin="0,3,0,3">
+                  <TextBlock Grid.Column="0" Text="{Binding RelativePath}" TextTrimming="CharacterEllipsis" />
+                  <TextBlock Grid.Column="1" Margin="10,0,0,0" Text="{Binding SizeLabel}" HorizontalAlignment="Right" />
+                  <TextBlock Grid.Column="2" Margin="10,0,0,0" Text="{Binding LastWriteLabel}" HorizontalAlignment="Right" />
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="1" Grid.Row="2" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Logs" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding Logs}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:LogEntryViewModel">
+                <TextBlock Text="{Binding Display}" FontFamily="Consolas" FontSize="11" Margin="0,2,0,0" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="2" Grid.Row="2" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
           <TextBlock Text="Conflicts" FontWeight="SemiBold" FontSize="18" />
-          <ItemsControl ItemsSource="{Binding Conflicts}" />
+          <ItemsControl ItemsSource="{Binding Conflicts}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:ConflictItemViewModel">
+                <Border CornerRadius="6" Padding="8" Margin="0,4,0,0" Background="#13000000">
+                  <StackPanel>
+                    <TextBlock Text="{Binding RelativePath}" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding DeviceHint}" FontSize="11" Opacity="0.8" />
+                    <TextBlock Text="{Binding DetectedAtUtc, StringFormat='Detected: {0:yyyy-MM-dd HH:mm:ss}'}" FontSize="11" Opacity="0.75" />
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="0" Grid.Row="2" Padding="12" CornerRadius="10" Background="#11000000">
+        <StackPanel>
+          <TextBlock Text="Shared Folders" FontWeight="SemiBold" FontSize="18" />
+          <ItemsControl ItemsSource="{Binding SharedFolders}" />
         </StackPanel>
       </Border>
     </Grid>
